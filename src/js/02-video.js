@@ -8,8 +8,6 @@ const myPlayer = new Player(iframe);
 //  localStorage.setItem('videoplayer-current-time', data.seconds);
 //};
 
-myPlayer.setCurrentTime(localStorage.getItem('videoplayer-current-time'));
-
 myPlayer.on(
   'timeupdate',
   throttle(
@@ -17,3 +15,5 @@ myPlayer.on(
     1000
   )
 );
+
+myPlayer.setCurrentTime(localStorage.getItem('videoplayer-current-time'));
