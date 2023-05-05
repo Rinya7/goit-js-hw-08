@@ -2,7 +2,7 @@ var throttle = require('lodash.throttle');
 const refs = {
   inputEmail: document.querySelector('input'),
   textArea: document.querySelector('textarea'),
-  sendForm: document.querySelector('form'),
+  sendForm: document.querySelector('.feedback-form'),
 };
 
 const STRORAGE_CONST = 'feedback-form-state';
@@ -19,6 +19,7 @@ const dataForm = {
 checkInput();
 
 function callbackEmail(event) {
+  //  console.log(event.target.value);
   dataForm.email = event.target.value;
   const jsonEmail = JSON.stringify(dataForm);
   localStorage.setItem(STRORAGE_CONST, jsonEmail);
@@ -32,8 +33,8 @@ function callbackText(event) {
 
 function checkInput() {
   const checkForm = JSON.parse(localStorage.getItem(STRORAGE_CONST));
-
-  if (checkForm.email || checkForm.message) {
+  //  console.log(checkForm);
+  if (checkForm) {
     refs.inputEmail.value = checkForm.email;
     refs.textArea.value = checkForm.message;
   }
@@ -41,6 +42,13 @@ function checkInput() {
 
 function sendFormFun(event) {
   event.preventDefault();
-  event.target.reset();
-  localStorage.removeItem(STRORAGE_CONST);
+  console.log(dataForm.email);
+  //  console.log(a.includes('@'));
+  if (dataForm.email === '' || dataForm.message === '') {
+    alert('Необхідно заповнити всі поля');
+  } else {
+    localStorage.removeItem(STRORAGE_CONST);
+    console.log(dataForm);
+    refs.sendForm.reset();
+  }
 }
