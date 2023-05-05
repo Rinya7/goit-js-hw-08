@@ -19,30 +19,34 @@ const dataForm = {
 checkInput();
 
 function callbackEmail(event) {
-  //  console.log(event.target.value);
-  dataForm.email = event.target.value;
-  const jsonEmail = JSON.stringify(dataForm);
-  localStorage.setItem(STRORAGE_CONST, jsonEmail);
+  if (event.target.value) {
+    dataForm.email = event.target.value;
+    const jsonEmail = JSON.stringify(dataForm);
+    localStorage.setItem(STRORAGE_CONST, jsonEmail);
+  }
 }
 
 function callbackText(event) {
-  dataForm.message = event.target.value;
-  const jsonMessage = JSON.stringify(dataForm);
-  localStorage.setItem(STRORAGE_CONST, jsonMessage);
+  if (event.target.value) {
+    dataForm.message = event.target.value;
+    const jsonMessage = JSON.stringify(dataForm);
+    localStorage.setItem(STRORAGE_CONST, jsonMessage);
+  }
 }
 
 function checkInput() {
-  const checkForm = JSON.parse(localStorage.getItem(STRORAGE_CONST));
-  //  console.log(checkForm);
-  if (checkForm) {
-    refs.inputEmail.value = checkForm.email;
-    refs.textArea.value = checkForm.message;
+  const checkData = JSON.parse(localStorage.getItem(STRORAGE_CONST));
+  if (checkData) {
+    dataForm.email = checkData.email;
+    dataForm.message = checkData.message;
+    refs.inputEmail.value = checkData.email;
+    refs.textArea.value = checkData.message;
   }
 }
 
 function sendFormFun(event) {
   event.preventDefault();
-  console.log(dataForm.email);
+  //  console.log(dataForm.email);
   //  console.log(a.includes('@'));
   if (dataForm.email === '' || dataForm.message === '') {
     alert('Необхідно заповнити всі поля');
